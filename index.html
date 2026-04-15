@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hash Tables</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+  :root {
+    --amber:  #f5a623;
+    --green:  #4ecb8d;
+    --purple: #a78bfa;
+    --blue:   #60a5fa;
+    --red:    #f87171;
+    --bg:     #0a0a0f;
+    --bg2:    #10101a;
+    --bg3:    #181824;
+    --border: #2a2a3a;
+    --text:   #e8e8f0;
+    --muted:  #8888a8;
+  }
+
+  .reveal-viewport { background: var(--bg); }
+  .reveal .slides section { background: transparent; }
+
+  .reveal { font-family: 'DM Sans', sans-serif; color: var(--text); }
+  .reveal h1, .reveal h2, .reveal h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+  .reveal h1 { font-size: 1.6em; color: var(--amber); line-height: 1.1; }
+  .reveal h2 { font-size: 1.1em; color: var(--amber); margin-bottom: .2em; }
+  .reveal h3 { font-size: .78em; color: var(--green); margin-bottom: .15em; }
+  .reveal p  { font-size: .56em; line-height: 1.45; color: var(--text); }
+  .reveal li { font-size: .54em; line-height: 1.45; margin-bottom: .1em; }
+  .reveal code { font-family: 'JetBrains Mono', monospace; font-size: .72em; }
+  .reveal pre  { box-shadow: none; background: var(--bg3); border: 1px solid var(--border);
+                 border-radius: 6px; padding: .3em .5em; margin: .25em 0; }
+  .reveal pre code { font-size: .52em; line-height: 1.35; background: transparent; color: #cdd6f4; }
+
+  /* ── slide chrome ── */
+  .slide-hdr {
+    display: flex; align-items: center; gap: .4em;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: .2em; margin-bottom: .3em;
+  }
+  .slide-hdr .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .42em; font-weight: 500;
+    color: var(--bg); background: var(--amber);
+    padding: .1em .4em; border-radius: 3px;
+    letter-spacing: .04em;
+  }
+  .slide-hdr h2 { margin: 0; font-size: .95em; }
+
+  /* ── two-column ── */
+  .cols   { display: grid; gap: .5em; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .cols-6040 { grid-template-columns: 6fr 4fr; }
+  .cols-4060 { grid-template-columns: 4fr 6fr; }
+
+  /* ── cards ── */
+  .card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 6px; padding: .35em .6em;
+  }
+  .card.amber { border-left: 3px solid var(--amber); }
+  .card.green { border-left: 3px solid var(--green); }
+  .card.purple{ border-left: 3px solid var(--purple); }
+  .card.blue  { border-left: 3px solid var(--blue); }
+  .card.red   { border-left: 3px solid var(--red); }
+  .card h3 { font-size: .64em; margin: 0 0 .12em; }
+  .card p  { font-size: .52em; margin: 0; color: #b8b8d0; }
+  .card ul { margin: 0; padding-left: 1em; }
+  .card li { font-size: .52em; color: #b8b8d0; margin-bottom: .02em; }
+
+  /* ── table ── */
+  .reveal table { width: 100%; border-collapse: collapse; font-size: .5em; }
+  .reveal table th { background: var(--bg3); color: var(--amber); font-weight: 600;
+                     padding: .2em .4em; border: 1px solid var(--border); text-align: left; }
+  .reveal table td { padding: .18em .4em; border: 1px solid var(--border); color: #ccc; }
+  .reveal table tr:nth-child(even) td { background: #0e0e18; }
+
+  /* ── accent spans ── */
+  .a  { color: var(--amber); font-weight: 600; }
+  .g  { color: var(--green); font-weight: 600; }
+  .p  { color: var(--purple); font-weight: 600; }
+  .b  { color: var(--blue); font-weight: 600; }
+  .r  { color: var(--red); font-weight: 600; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ── SVG graph diagrams ── */
+  svg.diagram { display: block; margin: 0 auto; overflow: visible; }
+
+  /* ── pill badges ── */
+  .pill {
+    display: inline-block; font-family: 'JetBrains Mono', monospace;
+    font-size: .44em; padding: .08em .4em; border-radius: 99px;
+    border: 1px solid; margin: 0 .08em;
+  }
+  .pill.amber { color: var(--amber); border-color: var(--amber); }
+  .pill.green { color: var(--green); border-color: var(--green); }
+  .pill.purple{ color: var(--purple); border-color: var(--purple); }
+  .pill.blue  { color: var(--blue); border-color: var(--blue); }
+
+  /* ── footer — hidden ── */
+  .reveal .slide-footer { display: none; }
+  /* title slide special */
+  .title-slide h1 { font-size: 1.8em; }
+  .title-slide .subtitle {
+    font-size: .7em; color: var(--green); font-family: 'DM Sans', sans-serif;
+    font-weight: 300; letter-spacing: .04em; margin: .3em 0 .6em;
+  }
+  .title-slide .meta { font-size: .48em; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+  /* ── super-step animator ── */
+  .ss-row {
+    display: flex; gap: .25em; align-items: center;
+    margin: .1em 0; font-size: .55em; font-family: 'JetBrains Mono', monospace;
+  }
+  .ss-node {
+    padding: .2em .55em; border-radius: 5px; font-size: .9em;
+    background: var(--bg3); border: 1px solid var(--border); color: var(--text);
+  }
+  .ss-node.active { background: #1a2a1a; border-color: var(--green); color: var(--green); }
+  .ss-node.done   { background: #1a1a2a; border-color: var(--purple); color: var(--purple); }
+  .ss-arrow { color: var(--amber); }
+  .ss-label { font-size: .8em; color: var(--muted); margin-left: .3em; }
+
+  /* reduce default margins */
+  .reveal ul, .reveal ol { margin: .15em 0 .15em 1em; }
+.reveal .slides > section { display: flex !important; flex-direction: column !important; overflow-y: auto !important; align-items: stretch !important; justify-content: flex-start !important; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 01 — Title
+══════════════════════════════════════════════════════════════════ -->
+<section class="title-slide" data-background-color="#0a0a0f">
+  <div style="font-family:'JetBrains Mono',monospace; font-size:.5em; color:var(--muted); margin-bottom:.4em; letter-spacing:.1em;">COMPUTER SCIENCE FUNDAMENTALS SERIES</div>
+  <h1>Hash Tables</h1>
+  <div class="subtitle">
+    Hash functions · Collision resolution · Open addressing ·<br>
+    Cuckoo hashing · Load factor · Concurrent maps
+  </div>
+  <div style="width:60px; height:3px; background:var(--amber); margin-bottom:1.4em;"></div>
+  <div class="meta">
+    Mid-level software engineer track &nbsp;·&nbsp; 20 slides
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 02 — Dictionary / Map ADT
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">02</span>
+    <h2>Dictionary / Map ADT</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>The abstract interface</h3>
+      <p>A dictionary (also called map, associative array) supports three core operations on key-value pairs:</p>
+      <ul>
+        <li><strong class="a">INSERT(k, v)</strong> — associate value <code>v</code> with key <code>k</code></li>
+        <li><strong class="a">SEARCH(k)</strong> — return the value for key <code>k</code>, or report absent</li>
+        <li><strong class="a">DELETE(k)</strong> — remove the pair with key <code>k</code></li>
+      </ul>
+      <div class="card blue" style="margin-top:0.6em">
+        <p>Hash tables achieve amortised constant time by trading deterministic guarantees for expected-case performance. The key insight: <strong style="color:var(--amber)">convert the key to an array index via a hash function</strong>.</p>
+      </div>
+    </div>
+    <div>
+      <h3>Naive implementations</h3>
+      <table>
+        <thead>
+          <tr><th>Data Structure</th><th>INSERT</th><th>SEARCH</th><th>DELETE</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Unsorted array</td><td><code>O(1)</code></td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr>
+          <tr><td>Sorted array</td><td><code>O(n)</code></td><td><code>O(log n)</code></td><td><code>O(n)</code></td></tr>
+          <tr><td>Balanced BST</td><td><code>O(log n)</code></td><td><code>O(log n)</code></td><td><code>O(log n)</code></td></tr>
+          <tr style="background:var(--bg3)"><td><strong class="a">Hash table</strong></td><td><strong class="g">O(1) exp.</strong></td><td><strong class="g">O(1) exp.</strong></td><td><strong class="g">O(1) exp.</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 03 — Direct Addressing
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">03</span>
+    <h2>Direct Addressing</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>When keys are small integers</h3>
+      <p>If every possible key is in <code>{0, 1, ..., U-1}</code> and <code>U</code> is small, store values in a plain array <code>T[0..U-1]</code>.</p>
+      <pre><code>T[k] = v       // INSERT
+T[k]           // SEARCH
+T[k] = NIL     // DELETE</code></pre>
+      <p>All operations are <code>O(1)</code> worst case.</p>
+      <div class="card amber" style="margin-top:0.6em">
+        <p>Direct addressing is the conceptual foundation. A hash table generalises it by <strong style="color:var(--amber)">compressing the key space</strong> via a hash function.</p>
+      </div>
+    </div>
+    <div>
+      <h3>The problem</h3>
+      <ul>
+        <li>When <code>U</code> is large (e.g. 64-bit integers, strings), allocating an array of size <code>U</code> is infeasible</li>
+        <li>When only <code>n &lt;&lt; U</code> keys are used, most of the array is wasted</li>
+        <li>Solution: <strong class="g">hash the key</strong> into a smaller index range <code>[0, m-1]</code> where <code>m = O(n)</code></li>
+      </ul>
+      <!-- Direct addressing diagram -->
+      <div style="background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:.5em; margin-top:0.5em">
+        <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+          <text x="10" y="16" font-family="'JetBrains Mono',monospace" font-size="10" fill="#8888a8">Direct-address table T[0..9]</text>
+          <!-- slots -->
+          <rect x="40" y="25" width="45" height="130" rx="3" fill="#1a1a28" stroke="#2a2a3a"/>
+          <line x1="40" y1="38" x2="85" y2="38" stroke="#2a2a3a"/>
+          <line x1="40" y1="51" x2="85" y2="51" stroke="#2a2a3a"/>
+          <line x1="40" y1="64" x2="85" y2="64" stroke="#2a2a3a"/>
+          <line x1="40" y1="77" x2="85" y2="77" stroke="#2a2a3a"/>
+          <line x1="40" y1="90" x2="85" y2="90" stroke="#2a2a3a"/>
+          <line x1="40" y1="103" x2="85" y2="103" stroke="#2a2a3a"/>
+          <line x1="40" y1="116" x2="85" y2="116" stroke="#2a2a3a"/>
+          <line x1="40" y1="129" x2="85" y2="129" stroke="#2a2a3a"/>
+          <line x1="40" y1="142" x2="85" y2="142" stroke="#2a2a3a"/>
+          <!-- indices -->
+          <text x="30" y="36" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">0</text>
+          <text x="30" y="49" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">1</text>
+          <text x="30" y="62" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f5a623">2</text>
+          <text x="30" y="75" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">3</text>
+          <text x="30" y="88" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">4</text>
+          <text x="30" y="101" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f5a623">5</text>
+          <text x="30" y="114" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">6</text>
+          <text x="30" y="127" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">7</text>
+          <text x="30" y="140" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f5a623">8</text>
+          <text x="30" y="153" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">9</text>
+          <!-- occupied slots highlighted -->
+          <rect x="41" y="52" width="43" height="12" rx="2" fill="#1e2e1e" stroke="#4ecb8d" stroke-width="0.5"/>
+          <text x="62" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#4ecb8d">val_A</text>
+          <rect x="41" y="91" width="43" height="12" rx="2" fill="#1e2e1e" stroke="#4ecb8d" stroke-width="0.5"/>
+          <text x="62" y="100" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#4ecb8d">val_B</text>
+          <rect x="41" y="130" width="43" height="12" rx="2" fill="#1e2e1e" stroke="#4ecb8d" stroke-width="0.5"/>
+          <text x="62" y="139" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#4ecb8d">val_C</text>
+          <!-- keys pointing in -->
+          <text x="150" y="62" font-family="'JetBrains Mono',monospace" font-size="10" fill="#f5a623">key=2</text>
+          <line x1="148" y1="58" x2="88" y2="58" stroke="#f5a623" stroke-dasharray="3,2" marker-end="url(#arr-a)"/>
+          <text x="150" y="100" font-family="'JetBrains Mono',monospace" font-size="10" fill="#f5a623">key=5</text>
+          <line x1="148" y1="96" x2="88" y2="96" stroke="#f5a623" stroke-dasharray="3,2"/>
+          <text x="150" y="139" font-family="'JetBrains Mono',monospace" font-size="10" fill="#f5a623">key=8</text>
+          <line x1="148" y1="135" x2="88" y2="135" stroke="#f5a623" stroke-dasharray="3,2"/>
+          <!-- label -->
+          <text x="150" y="165" font-family="'DM Sans',sans-serif" font-size="9" fill="#8888a8">Only 3 of 10 slots used</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 04 — Hash Functions
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">04</span>
+    <h2>Hash Functions</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>Requirements</h3>
+      <p>A hash function <code>h(k)</code> maps a key from universe <code>U</code> to an index in <code>{0, 1, ..., m-1}</code>.</p>
+      <ul>
+        <li><strong class="a">Deterministic</strong> — same key always produces the same index</li>
+        <li><strong class="g">Uniform distribution</strong> — keys spread evenly across slots</li>
+        <li><strong class="b">Fast to compute</strong> — ideally <code>O(1)</code> or <code>O(|key|)</code></li>
+      </ul>
+      <h3 style="margin-top:0.5em">Division method</h3>
+      <pre><code>h(k) = k mod m</code></pre>
+      <p>Simple but sensitive to choice of <code>m</code>. Avoid powers of 2. Choose <code>m</code> as a prime not close to a power of 2.</p>
+      <h3 style="margin-top:0.3em">Multiplication method</h3>
+      <pre><code>h(k) = floor(m * (k * A mod 1))
+// where 0 &lt; A &lt; 1
+// Knuth: A = (sqrt(5) - 1) / 2 ≈ 0.618</code></pre>
+    </div>
+    <div>
+      <h3>Practical hash functions</h3>
+      <table>
+        <thead>
+          <tr><th>Function</th><th>Use case</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>MurmurHash3</strong></td><td>General-purpose, fast, good distribution</td></tr>
+          <tr><td><strong>xxHash</strong></td><td>Extremely fast, widely used in checksums</td></tr>
+          <tr><td><strong>SipHash</strong></td><td>Hash-flooding resistant — default in Python, Rust</td></tr>
+          <tr><td><strong>FNV-1a</strong></td><td>Simple, byte-at-a-time, good for short keys</td></tr>
+          <tr><td><strong>CityHash / FarmHash</strong></td><td>Google's fast hashes for strings</td></tr>
+        </tbody>
+      </table>
+      <div class="card purple" style="margin-top:0.6em">
+        <p><strong style="color:var(--purple)">Cryptographic hashes</strong> (SHA-256) provide stronger guarantees but are much slower. Use them for security, not hash tables.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 05 — Universal Hashing
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">05</span>
+    <h2>Universal Hashing</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>The adversary problem</h3>
+      <p>Any single deterministic hash function has a worst case: an adversary can craft <code>n</code> keys that all hash to the same slot, degrading every operation to <code>O(n)</code>.</p>
+      <h3 style="margin-top:0.5em">Universal hash families</h3>
+      <p>A family <code>H</code> is <strong class="a">universal</strong> if for any two distinct keys <code>x ≠ y</code>:</p>
+      <pre><code>Pr[h(x) = h(y)] ≤ 1/m
+// where h chosen randomly from H</code></pre>
+      <h3 style="margin-top:0.5em">Carter-Wegman construction</h3>
+      <p>For prime <code>p ≥ |U|</code>:</p>
+      <pre><code>h_{a,b}(k) = ((a * k + b) mod p) mod m
+// a ∈ {1, ..., p-1},  b ∈ {0, ..., p-1}</code></pre>
+    </div>
+    <div>
+      <h3>Properties</h3>
+      <div class="card green" style="margin-bottom:0.4em">
+        <p>Expected chain length is <code>n/m</code> regardless of key distribution</p>
+      </div>
+      <div class="card amber" style="margin-bottom:0.4em">
+        <p>No adversary can force worst-case behaviour without knowing <code>a, b</code></p>
+      </div>
+      <div class="card blue" style="margin-bottom:0.4em">
+        <p>Choosing a new random <code>h</code> at construction time is sufficient — no per-query randomness needed</p>
+      </div>
+      <h3 style="margin-top:0.5em">Stronger families</h3>
+      <ul>
+        <li><strong class="p">k-independent</strong> — any k distinct keys hash independently</li>
+        <li>2-independent ≈ universal; 5-independent suffices for linear probing to achieve <code>O(1)</code> expected</li>
+        <li><strong>Tabulation hashing</strong> — 3-independent, fast, practical; suffices for chaining and cuckoo hashing</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 06 — Separate Chaining
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">06</span>
+    <h2>Separate Chaining</h2>
+  </div>
+  <div class="cols cols-6040">
+    <div>
+      <h3>Collision resolution with linked lists</h3>
+      <p>Each slot <code>T[i]</code> points to a linked list of all elements whose keys hash to <code>i</code>.</p>
+      <h3 style="margin-top:0.4em">Operations</h3>
+      <ul>
+        <li><strong class="a">INSERT</strong> — compute <code>h(k)</code>, prepend to list at <code>T[h(k)]</code> — <code>O(1)</code></li>
+        <li><strong class="g">SEARCH</strong> — compute <code>h(k)</code>, traverse list at <code>T[h(k)]</code> — <code>O(chain length)</code></li>
+        <li><strong class="r">DELETE</strong> — search then unlink — <code>O(chain length)</code></li>
+      </ul>
+      <h3 style="margin-top:0.4em">Performance</h3>
+      <p>With load factor <code>α = n/m</code> and a good hash function:</p>
+      <ul>
+        <li>Expected chain length = <code>α</code></li>
+        <li>Expected search time = <code>O(1 + α)</code></li>
+        <li>If <code>n = O(m)</code>, all operations are <code>O(1)</code> expected</li>
+      </ul>
+      <div class="card green" style="margin-top:0.4em">
+        <p>Chaining is simple and tolerates <code>α &gt; 1</code> gracefully. Downside: pointer chasing is <strong style="color:var(--red)">cache-unfriendly</strong>.</p>
+      </div>
+    </div>
+    <div>
+      <!-- Chaining diagram -->
+      <div style="background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:.5em;">
+        <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+          <defs>
+            <marker id="ch-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#a78bfa"/>
+            </marker>
+          </defs>
+          <text x="10" y="14" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">Separate chaining</text>
+          <!-- table slots -->
+          <rect x="10" y="22" width="50" height="160" rx="3" fill="#1a1a28" stroke="#2a2a3a"/>
+          <text x="35" y="38" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[0]</text>
+          <line x1="10" y1="42" x2="60" y2="42" stroke="#2a2a3a"/>
+          <text x="35" y="58" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[1]</text>
+          <line x1="10" y1="62" x2="60" y2="62" stroke="#2a2a3a"/>
+          <text x="35" y="78" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[2]</text>
+          <line x1="10" y1="82" x2="60" y2="82" stroke="#2a2a3a"/>
+          <text x="35" y="98" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[3]</text>
+          <line x1="10" y1="102" x2="60" y2="102" stroke="#2a2a3a"/>
+          <text x="35" y="118" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[4]</text>
+          <line x1="10" y1="122" x2="60" y2="122" stroke="#2a2a3a"/>
+          <text x="35" y="138" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#8888a8">T[5]</text>
+          <line x1="10" y1="142" x2="60" y2="142" stroke="#2a2a3a"/>
+          <text x="35" y="158" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#8888a8">T[6]</text>
+          <line x1="10" y1="162" x2="60" y2="162" stroke="#2a2a3a"/>
+          <text x="35" y="178" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[7]</text>
+          <!-- chain from T[0] -->
+          <line x1="60" y1="34" x2="78" y2="34" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
+          <rect x="82" y="26" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
+          <text x="101" y="37" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k3</text>
+          <line x1="120" y1="34" x2="138" y2="34" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
+          <rect x="142" y="26" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
+          <text x="161" y="37" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k7</text>
+          <!-- chain from T[2] -->
+          <line x1="60" y1="74" x2="78" y2="74" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
+          <rect x="82" y="66" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
+          <text x="101" y="77" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k1</text>
+          <!-- chain from T[3] -->
+          <line x1="60" y1="94" x2="78" y2="94" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
+          <rect x="82" y="86" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
+          <text x="101" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k5</text>
+          <line x1="120" y1="94" x2="138" y2="94" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
+          <rect x="142" y="86" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
+          <text x="161" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k9</text>
+          <line x1="180" y1="94" x2="198" y2="94" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
+          <rect x="202" y="86" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
+          <text x="221" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k2</text>
+          <!-- chain from T[4] -->
+          <line x1="60" y1="114" x2="78" y2="114" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
+          <rect x="82" y="106" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
+          <text x="101" y="117" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k8</text>
+          <!-- T[1] NIL -->
+          <text x="70" y="58" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8888a8">NIL</text>
+          <!-- T[5] NIL -->
+          <text x="70" y="138" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8888a8">NIL</text>
+          <!-- T[6] NIL -->
+          <text x="70" y="158" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8888a8">NIL</text>
+          <!-- chain from T[7] -->
+          <line x1="60" y1="174" x2="78" y2="174" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
+          <rect x="82" y="166" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
+          <text x="101" y="177" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k4</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 07 — Open Addressing: Linear & Quadratic Probing
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">07</span>
+    <h2>Open Addressing — Linear &amp; Quadratic Probing</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>Open addressing principle</h3>
+      <p>All elements stored directly in the table array. No pointers, no linked lists. On collision, <strong class="a">probe</strong> a sequence of alternative slots until an empty one is found.</p>
+      <h3 style="margin-top:0.4em">Linear probing</h3>
+      <pre><code>h(k, i) = (h'(k) + i) mod m
+// for i = 0, 1, 2, ...</code></pre>
+      <p>Slots checked sequentially. Cache-friendly but suffers from <strong class="r">primary clustering</strong> — runs of occupied slots grow and merge.</p>
+      <h3 style="margin-top:0.4em">Quadratic probing</h3>
+      <pre><code>h(k, i) = (h'(k) + c1*i + c2*i²) mod m</code></pre>
+      <p>Spreads probes more than linear. Avoids primary clustering but can cause <strong class="r">secondary clustering</strong>.</p>
+    </div>
+    <div>
+      <h3>Comparison</h3>
+      <table>
+        <thead>
+          <tr><th>Method</th><th>Cache</th><th>Clustering</th><th>Coverage</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Linear</strong></td><td class="g">Excellent</td><td class="r">Primary</td><td>All slots</td></tr>
+          <tr><td><strong>Quadratic</strong></td><td class="b">Good</td><td class="r">Secondary</td><td>May miss if m not prime</td></tr>
+        </tbody>
+      </table>
+      <div class="card blue" style="margin-top:0.6em">
+        <p>Linear probing is used in practice more than theory suggests — modern CPUs love sequential memory access. <strong style="color:var(--blue)">Swiss Table proves this decisively.</strong></p>
+      </div>
+      <!-- Clustering visual -->
+      <div style="margin-top:0.5em">
+        <p style="font-size:.48em; color:var(--muted); margin-bottom:0.2em">Primary clustering — occupied runs grow:</p>
+        <div style="display:flex; gap:2px; font-family:'JetBrains Mono',monospace; font-size:.42em;">
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">_</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k1</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k4</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k7</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k2</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k9</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">_</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k3</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">_</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">_</span>
+        </div>
+        <p style="font-size:.42em; color:var(--red); margin-top:0.15em">↑ cluster of 5 — new inserts extend it further</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 08 — Double Hashing
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">08</span>
+    <h2>Double Hashing</h2>
+  </div>
+  <div class="cols cols-6040">
+    <div>
+      <h3>Two independent hash functions</h3>
+      <pre><code>h(k, i) = (h1(k) + i * h2(k)) mod m
+// h2(k) must never return 0
+// Common: h2(k) = 1 + (k mod (m - 1)), m prime</code></pre>
+      <h3 style="margin-top:0.4em">Why it works</h3>
+      <ul>
+        <li>Each key generates a <strong class="g">distinct probe sequence</strong> — no clustering</li>
+        <li>Approximates the ideal of uniform probing</li>
+        <li>Expected probes for unsuccessful search: <code>1 / (1 - α)</code></li>
+        <li>Expected probes for successful search: <code>(1/α) * ln(1 / (1 - α))</code></li>
+      </ul>
+      <div class="card amber" style="margin-top:0.5em">
+        <p>As <code>α → 1</code>, performance degrades sharply. Open-addressing tables should resize well before reaching <code>α = 1</code> — typically at <strong style="color:var(--amber)">α ∈ [0.5, 0.75]</strong>.</p>
+      </div>
+    </div>
+    <div>
+      <h3>Probe count at various load factors</h3>
+      <table>
+        <thead>
+          <tr><th>Load α</th><th>Unsuccessful</th><th>Successful</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0.50</td><td>2.0 probes</td><td>1.4 probes</td></tr>
+          <tr><td>0.75</td><td>4.0 probes</td><td>1.8 probes</td></tr>
+          <tr><td>0.90</td><td>10.0 probes</td><td>2.6 probes</td></tr>
+          <tr><td>0.95</td><td>20.0 probes</td><td>3.2 probes</td></tr>
+        </tbody>
+      </table>
+      <h3 style="margin-top:0.6em">Probing comparison</h3>
+      <div style="display:flex; flex-direction:column; gap:.3em; margin-top:0.3em">
+        <div class="card green">
+          <p><strong style="color:var(--green)">Linear</strong> — fast cache, primary clustering</p>
+        </div>
+        <div class="card blue">
+          <p><strong style="color:var(--blue)">Quadratic</strong> — better spread, secondary clustering</p>
+        </div>
+        <div class="card amber">
+          <p><strong style="color:var(--amber)">Double</strong> — no clustering, two hash computations</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 09 — Load Factor & Performance
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">09</span>
+    <h2>Load Factor &amp; Performance</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>Load factor</h3>
+      <pre><code>α = n / m
+// n = stored elements, m = table capacity</code></pre>
+      <ul>
+        <li><strong class="a">Chaining:</strong> <code>α</code> can exceed 1.0. Performance degrades linearly: <code>O(1 + α)</code></li>
+        <li><strong class="g">Open addressing:</strong> <code>α</code> must stay below 1.0. Performance degrades non-linearly</li>
+      </ul>
+      <h3 style="margin-top:0.5em">Amortised O(1) argument</h3>
+      <p>Maintain <code>α ≤ c</code> for constant <code>c &lt; 1</code> by doubling when threshold exceeded:</p>
+      <ul>
+        <li>Each insertion is <code>O(1)</code> expected</li>
+        <li>Resizing costs <code>O(n)</code> but happens only every <code>O(n)</code> insertions</li>
+        <li><strong class="g">Amortised cost per insertion: O(1)</strong></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Space-time trade-off</h3>
+      <table>
+        <thead>
+          <tr><th>Load target</th><th>Memory overhead</th><th>Probe perf.</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>α ≤ 0.50</code></td><td>2x actual data</td><td class="g">Excellent</td></tr>
+          <tr><td><code>α ≤ 0.75</code></td><td>1.33x actual data</td><td class="b">Good</td></tr>
+          <tr><td><code>α ≤ 0.90</code></td><td>1.11x actual data</td><td class="r">Acceptable / poor</td></tr>
+        </tbody>
+      </table>
+      <div class="card purple" style="margin-top:0.6em">
+        <p>Most real-world hash tables target <code>α ∈ [0.5, 0.75]</code>. Python's <code>dict</code> resizes at <code>α = 2/3</code>.</p>
+      </div>
+      <h3 style="margin-top:0.5em">Expected longest chain (chaining)</h3>
+      <p>For <code>n</code> keys in <code>m</code> slots with universal hashing, the expected longest chain is <code>Θ(log n / log log n)</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 10 — Resizing & Rehashing
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">10</span>
+    <h2>Resizing &amp; Rehashing</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>When to resize</h3>
+      <p>Typically when <code>α</code> exceeds a threshold (e.g. 0.75). Some implementations also shrink when <code>α</code> drops below a lower bound (e.g. 0.25).</p>
+      <h3 style="margin-top:0.4em">The rehashing process</h3>
+      <ol>
+        <li>Allocate new table of size <code>m' = 2m</code> (or next prime &gt; <code>2m</code>)</li>
+        <li>For every element, compute <code>h(k) mod m'</code> and insert into the new table</li>
+        <li>Free the old table</li>
+      </ol>
+      <p>Cost: <code>O(n)</code> — must rehash every element because the modulus changed.</p>
+      <h3 style="margin-top:0.4em">Incremental rehashing (Redis approach)</h3>
+      <ul>
+        <li>Maintain <strong class="a">two tables</strong> simultaneously</li>
+        <li>On each operation, migrate a few keys from old to new</li>
+        <li>Lookups check both tables during the transition</li>
+        <li>After all keys migrated, free the old table</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Growth strategies</h3>
+      <table>
+        <thead>
+          <tr><th>Strategy</th><th>New size</th><th>Amortised</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Doubling</strong></td><td><code>2m</code></td><td><code>O(1)</code></td></tr>
+          <tr><td><strong>1.5x growth</strong></td><td><code>1.5m</code></td><td><code>O(1)</code> (lower const.)</td></tr>
+          <tr><td><strong>Prime stepping</strong></td><td>next prime &gt; <code>2m</code></td><td><code>O(1)</code>, better distribution</td></tr>
+        </tbody>
+      </table>
+      <div class="card blue" style="margin-top:0.6em">
+        <p><strong style="color:var(--blue)">Shrinking</strong> is often omitted in practice — the memory cost of an oversized table is usually acceptable, and shrink-grow oscillation near the threshold is expensive.</p>
+      </div>
+      <!-- step diagram -->
+      <div style="margin-top:0.4em">
+        <div class="ss-row">
+          <span class="ss-node done">Old table (m)</span>
+          <span class="ss-arrow">→</span>
+          <span class="ss-node active">Rehash all n keys</span>
+          <span class="ss-arrow">→</span>
+          <span class="ss-node done">New table (2m)</span>
+        </div>
+        <span class="ss-label">Full rehash: one O(n) pause</span>
+      </div>
+      <div style="margin-top:0.3em">
+        <div class="ss-row">
+          <span class="ss-node done">Old</span>
+          <span class="ss-arrow">⇄</span>
+          <span class="ss-node active">Migrate k keys/op</span>
+          <span class="ss-arrow">→</span>
+          <span class="ss-node done">New</span>
+        </div>
+        <span class="ss-label">Incremental: no latency spike</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 11 — Robin Hood Hashing
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">11</span>
+    <h2>Robin Hood Hashing</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>Equalising probe distances</h3>
+      <p>A variant of open-addressing (typically linear probing) where the <strong class="a">probe distance</strong> of each element is tracked.</p>
+      <h3 style="margin-top:0.4em">The Robin Hood rule</h3>
+      <p>During insertion, if the new element's probe distance exceeds the occupant's, <strong class="g">swap them</strong> — "steal from the rich, give to the poor."</p>
+      <pre><code>Insert key K with probe distance d:
+  While slot is occupied:
+    If d > occupant's probe distance:
+      Swap K with occupant
+      Continue inserting displaced element
+    Advance to next slot, d++
+  Place K in empty slot</code></pre>
+    </div>
+    <div>
+      <h3>Benefits</h3>
+      <div style="display:flex; flex-direction:column; gap:.3em; margin-top:0.3em">
+        <div class="card green">
+          <p><strong style="color:var(--green)">Reduced variance</strong> — all elements have similar probe lengths</p>
+        </div>
+        <div class="card amber">
+          <p><strong style="color:var(--amber)">Expected max probe</strong> — <code>O(log log n)</code> vs <code>O(log n)</code> for standard linear probing</p>
+        </div>
+        <div class="card blue">
+          <p><strong style="color:var(--blue)">Early termination</strong> — lookup stops if current probe distance exceeds occupant's</p>
+        </div>
+        <div class="card purple">
+          <p><strong style="color:var(--purple)">Simpler deletion</strong> — backward-shift instead of tombstones</p>
+        </div>
+      </div>
+      <div class="card amber" style="margin-top:0.6em">
+        <p>Robin Hood hashing makes linear probing practical at higher load factors. Rust's <code>HashMap</code> used Robin Hood hashing before switching to <strong style="color:var(--amber)">hashbrown</strong> (Swiss Table).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 12 — Cuckoo Hashing
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">12</span>
+    <h2>Cuckoo Hashing</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>Worst-case O(1) lookup</h3>
+      <p>Uses <strong class="a">two hash functions</strong> <code>h1</code> and <code>h2</code> and two tables <code>T1</code>, <code>T2</code>.</p>
+      <ul>
+        <li><strong class="g">SEARCH:</strong> check <code>T1[h1(k)]</code> and <code>T2[h2(k)]</code> — exactly 2 lookups, always</li>
+        <li><strong class="r">DELETE:</strong> check both locations, remove — <code>O(1)</code> worst case</li>
+      </ul>
+      <h3 style="margin-top:0.4em">Insertion algorithm</h3>
+      <pre><code>Insert key k:
+  If T1[h1(k)] empty -> place k, done
+  Evict x from T1[h1(k)], place k
+  If T2[h2(x)] empty -> place x, done
+  Evict y from T2[h2(x)], place x
+  ... repeat (max iteration limit)
+  If cycle -> rehash with new functions</code></pre>
+    </div>
+    <div>
+      <h3>Properties</h3>
+      <table>
+        <thead>
+          <tr><th>Property</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Lookup</strong></td><td><span class="g">O(1) worst case</span></td></tr>
+          <tr><td><strong>Deletion</strong></td><td><span class="g">O(1) worst case</span></td></tr>
+          <tr><td><strong>Insertion</strong></td><td>O(1) amortised (with rehash)</td></tr>
+          <tr><td><strong>Max load factor</strong></td><td>~50% (two tables) or higher with buckets</td></tr>
+          <tr><td><strong>Rehash trigger</strong></td><td>Insertion cycle detected</td></tr>
+        </tbody>
+      </table>
+      <div class="card green" style="margin-top:0.6em">
+        <p>Cuckoo hashing guarantees constant-time lookups — ideal for <strong style="color:var(--green)">network routers, hardware implementations</strong>, and read-heavy workloads.</p>
+      </div>
+      <!-- Cuckoo visual -->
+      <div style="margin-top:0.4em; display:flex; gap:0.8em; align-items:center; justify-content:center">
+        <div style="text-align:center">
+          <p style="font-size:.44em; color:var(--amber); margin-bottom:0.15em">T1</p>
+          <div style="display:flex; flex-direction:column; gap:2px; font-family:'JetBrains Mono',monospace; font-size:.4em;">
+            <span style="background:#1e2e1e; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k1</span>
+            <span style="background:var(--bg3); border:1px solid var(--border); padding:.12em .4em; border-radius:3px; color:var(--muted)">_</span>
+            <span style="background:#1e2e1e; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k3</span>
+            <span style="background:#1e2e1e; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k5</span>
+          </div>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:.5em; color:var(--amber)">⇄</div>
+        <div style="text-align:center">
+          <p style="font-size:.44em; color:var(--amber); margin-bottom:0.15em">T2</p>
+          <div style="display:flex; flex-direction:column; gap:2px; font-family:'JetBrains Mono',monospace; font-size:.4em;">
+            <span style="background:#1e1e2e; border:1px solid var(--purple); padding:.12em .4em; border-radius:3px; color:var(--purple)">k2</span>
+            <span style="background:#1e1e2e; border:1px solid var(--purple); padding:.12em .4em; border-radius:3px; color:var(--purple)">k4</span>
+            <span style="background:var(--bg3); border:1px solid var(--border); padding:.12em .4em; border-radius:3px; color:var(--muted)">_</span>
+            <span style="background:var(--bg3); border:1px solid var(--border); padding:.12em .4em; border-radius:3px; color:var(--muted)">_</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 13 — Hopscotch Hashing
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">13</span>
+    <h2>Hopscotch Hashing</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>Bounded neighbourhood</h3>
+      <p>Each slot has a "neighbourhood" of <code>H</code> consecutive slots (typically <code>H = 32</code>). An element hashing to slot <code>i</code> must reside within <code>i</code> to <code>i + H - 1</code>.</p>
+      <h3 style="margin-top:0.4em">Lookup</h3>
+      <p>Check all <code>H</code> slots in the neighbourhood — a single cache line or two. Uses a <strong class="a">bitmap per slot</strong> to record which neighbours are occupied by elements hashing to that slot.</p>
+      <h3 style="margin-top:0.4em">Insertion</h3>
+      <ol>
+        <li>Find an empty slot (may be beyond the neighbourhood)</li>
+        <li>Repeatedly swap elements to move the empty slot closer, into the neighbourhood</li>
+        <li>If no swap chain can bring the empty slot within range, resize</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Advantages over linear probing</h3>
+      <div style="display:flex; flex-direction:column; gap:.3em; margin-top:0.3em">
+        <div class="card green">
+          <p><strong style="color:var(--green)">Bounded worst-case probe</strong> — at most <code>H</code> slots</p>
+        </div>
+        <div class="card amber">
+          <p><strong style="color:var(--amber)">Cache-friendly</strong> — neighbourhood fits in 1–2 cache lines</p>
+        </div>
+        <div class="card blue">
+          <p><strong style="color:var(--blue)">Concurrency-friendly</strong> — lock only the neighbourhood, not the whole table</p>
+        </div>
+        <div class="card purple">
+          <p><strong style="color:var(--purple)">No tombstones</strong> — just clear the bitmap bit and the slot</p>
+        </div>
+      </div>
+      <div class="card amber" style="margin-top:0.6em">
+        <p>Hopscotch hashing combines the cache-friendliness of linear probing with a <strong style="color:var(--amber)">bounded probe guarantee</strong>. Used in Cliff Click's lock-free concurrent hash map.</p>
+      </div>
+      <!-- neighbourhood visual -->
+      <div style="margin-top:0.4em">
+        <p style="font-size:.44em; color:var(--muted); margin-bottom:0.15em">Neighbourhood of slot 3 (H=4):</p>
+        <div style="display:flex; gap:2px; font-family:'JetBrains Mono',monospace; font-size:.42em;">
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">0</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">1</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">2</span>
+          <span style="background:#2e1e00; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">3</span>
+          <span style="background:#2e1e00; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">4</span>
+          <span style="background:#2e1e00; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">5</span>
+          <span style="background:#2e1e00; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">6</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">7</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">8</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">9</span>
+        </div>
+        <p style="font-size:.42em; color:var(--amber); margin-top:0.1em">↑ bitmap: 1101 — elements at slots 3, 4, 6</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 14 — Swiss Table
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">14</span>
+    <h2>Swiss Table</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>Google's flat_hash_map</h3>
+      <p>Open-addressing with linear probing, but with <strong class="a">SIMD-accelerated</strong> metadata lookups. Used in Abseil (<code>absl::flat_hash_map</code>) and Rust's <code>hashbrown</code>.</p>
+      <h3 style="margin-top:0.4em">Architecture</h3>
+      <ul>
+        <li>Table divided into <strong class="a">groups of 16 slots</strong></li>
+        <li>Each group has a 16-byte <strong class="g">control byte array</strong> (one byte per slot)</li>
+        <li>Control byte: top 7 bits of hash (H2) + 1 bit for empty/deleted/full</li>
+        <li>Probe sequence walks over <strong class="p">groups</strong>, not individual slots</li>
+      </ul>
+      <h3 style="margin-top:0.4em">SIMD-powered lookup</h3>
+      <pre><code>1. h1 = hash(key)
+2. group = h1 mod num_groups
+3. H2 = top 7 bits of hash
+4. Load 16 ctrl bytes → SIMD register
+5. Compare all 16 vs H2 in ONE instr
+   (SSE2 _mm_cmpeq_epi8)
+6. Bitmask → check only matches</code></pre>
+    </div>
+    <div>
+      <h3>Performance characteristics</h3>
+      <table>
+        <thead>
+          <tr><th>Property</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Probe unit</strong></td><td>16 slots at once (SIMD)</td></tr>
+          <tr><td><strong>Empty check</strong></td><td>Single SIMD comparison</td></tr>
+          <tr><td><strong>Load factor</strong></td><td>Up to ~87.5% efficiently</td></tr>
+          <tr><td><strong>Deletion</strong></td><td>"deleted" sentinel — no tombstone clustering</td></tr>
+          <tr><td><strong>Memory layout</strong></td><td>Keys/values stored flat, no pointers</td></tr>
+        </tbody>
+      </table>
+      <div class="card green" style="margin-top:0.6em">
+        <p>Swiss Table is the <strong style="color:var(--green)">state of the art</strong> for general-purpose hash tables. It proves that linear probing + SIMD beats more complex schemes in practice.</p>
+      </div>
+      <!-- group visual -->
+      <div style="margin-top:0.4em">
+        <p style="font-size:.44em; color:var(--muted); margin-bottom:0.15em">One group (16 control bytes):</p>
+        <div style="display:flex; gap:1px; font-family:'JetBrains Mono',monospace; font-size:.36em; flex-wrap:wrap;">
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">4A</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">7F</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.1em .25em; border-radius:2px; color:var(--muted)">FF</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">1B</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">4A</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.1em .25em; border-radius:2px; color:var(--muted)">FF</span>
+          <span style="background:#2e1e1e; border:1px solid var(--red); padding:.1em .25em; border-radius:2px; color:var(--red)">FE</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">33</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.1em .25em; border-radius:2px; color:var(--muted)">FF</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">5C</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">0D</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.1em .25em; border-radius:2px; color:var(--muted)">FF</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">72</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">4A</span>
+          <span style="background:var(--bg3); border:1px solid var(--border); padding:.1em .25em; border-radius:2px; color:var(--muted)">FF</span>
+          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">19</span>
+        </div>
+        <p style="font-size:.36em; margin-top:0.1em"><span style="color:var(--green)">H2 match</span> · <span style="color:var(--muted)">FF=empty</span> · <span style="color:var(--red)">FE=deleted</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 15 — Perfect Hashing
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">15</span>
+    <h2>Perfect Hashing</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>Zero collisions by construction</h3>
+      <p>A <strong class="a">perfect hash function</strong> maps <code>n</code> keys to <code>m</code> slots with <strong class="g">no collisions</strong>. A <strong class="p">minimal</strong> perfect hash uses <code>m = n</code>.</p>
+      <h3 style="margin-top:0.4em">FKS two-level scheme</h3>
+      <p><strong class="a">Level 1:</strong> Hash <code>n</code> keys into <code>m</code> primary slots using a universal hash function.</p>
+      <p><strong class="g">Level 2:</strong> For each primary slot <code>j</code> with <code>n_j</code> keys, build a secondary table of size <code>n_j²</code> with its own universal hash function.</p>
+      <pre><code>Level 1:  h1(k) → primary slot j
+Level 2:  h_j(k) → position in
+          secondary table for slot j</code></pre>
+    </div>
+    <div>
+      <h3>Space and time</h3>
+      <table>
+        <thead>
+          <tr><th>Property</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Lookup</strong></td><td><span class="g">O(1) worst case</span> — 2 hashes, 2 lookups</td></tr>
+          <tr><td><strong>Total space</strong></td><td>O(n) expected</td></tr>
+          <tr><td><strong>Construction</strong></td><td>O(n) expected</td></tr>
+          <tr><td><strong>Static only</strong></td><td>Keys must be known in advance</td></tr>
+        </tbody>
+      </table>
+      <h3 style="margin-top:0.5em">Practical tools</h3>
+      <div style="margin-top:0.3em">
+        <span class="pill amber">gperf</span>
+        <span class="pill green">CMPH</span>
+        <span class="pill purple">BBHash</span>
+        <span class="pill blue">CHD</span>
+      </div>
+      <div class="card purple" style="margin-top:0.6em">
+        <p>Perfect hashing is optimal for <strong style="color:var(--purple)">static dictionaries</strong> — compiler keyword tables, routing tables with fixed prefix sets. For dynamic sets, cuckoo hashing is the closest analogue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 16 — Hash Tables in Practice: Python & Java
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">16</span>
+    <h2>Hash Tables in Practice — Python &amp; Java</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <div class="card amber">
+        <h3 style="color:var(--amber)">Python dict (CPython 3.6+)</h3>
+        <ul>
+          <li><strong>Open addressing</strong> with compact layout</li>
+          <li>Separate <strong>hash array</strong> (indices) and <strong>dense entries array</strong> (preserves insertion order)</li>
+          <li>Hash function: <strong>SipHash</strong> (hash-flooding resistant)</li>
+          <li>Resize at <code>α = 2/3</code>; growth ~3x small, ~2x large</li>
+          <li>Compact dict saves ~25% memory vs pre-3.6</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card green">
+        <h3 style="color:var(--green)">Java HashMap</h3>
+        <ul>
+          <li><strong>Separate chaining</strong> with linked list per bucket</li>
+          <li>At <code>α = 0.75</code>, resize to <code>2 * capacity</code></li>
+          <li>Chain &gt; <strong>8 elements → treeified</strong> (red-black tree, <code>O(log n)</code> per bucket)</li>
+          <li>Chain &lt; 6 → reverts to linked list</li>
+          <li>Hash: <code>(h = key.hashCode()) ^ (h >>> 16)</code></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <h3 style="margin-top:0.5em">Comparison</h3>
+  <table>
+    <thead>
+      <tr><th>Feature</th><th>Python dict</th><th>Java HashMap</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Strategy</strong></td><td>Open addressing</td><td>Separate chaining</td></tr>
+      <tr><td><strong>Order preserved</strong></td><td><span class="g">Yes (insertion order)</span></td><td><span class="r">No</span> (use LinkedHashMap)</td></tr>
+      <tr><td><strong>Treeification</strong></td><td>No</td><td><span class="g">Yes</span> (chains &gt; 8)</td></tr>
+      <tr><td><strong>Hash function</strong></td><td>SipHash</td><td>hashCode() XOR-shifted</td></tr>
+      <tr><td><strong>Default load factor</strong></td><td>0.67</td><td>0.75</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 17 — Hash Tables in Practice: Go & C++
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">17</span>
+    <h2>Hash Tables in Practice — Go &amp; C++</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <div class="card blue">
+        <h3 style="color:var(--blue)">Go map</h3>
+        <ul>
+          <li><strong>Separate chaining with buckets</strong> — each bucket holds 8 key-value pairs</li>
+          <li>Overflow buckets linked when full</li>
+          <li><strong>Incremental rehashing</strong> — grows and evacuates lazily</li>
+          <li>Hash: architecture-dependent (AES on amd64)</li>
+          <li><strong class="r">Not thread-safe</strong> — concurrent read/write is a fatal panic</li>
+          <li>Iteration order <strong>randomised</strong> by design</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card purple">
+        <h3 style="color:var(--purple)">C++ std::unordered_map</h3>
+        <ul>
+          <li><strong>Separate chaining</strong> with linked list per bucket (mandated by iterator stability rules)</li>
+          <li>Default <code>max_load_factor = 1.0</code></li>
+          <li><strong class="r">Poor cache locality</strong> — pointer-based chains</li>
+          <li>Widely considered a performance anti-pattern</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <h3 style="margin-top:0.5em">Why std::unordered_map is slow</h3>
+  <table>
+    <thead>
+      <tr><th>Issue</th><th>Cause</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Pointer chasing</strong></td><td>Each node is a separate heap allocation</td></tr>
+      <tr><td><strong>Cache misses</strong></td><td>Nodes scattered across memory</td></tr>
+      <tr><td><strong>High load factor</strong></td><td>Default 1.0 means long chains</td></tr>
+      <tr><td><strong>Iterator stability</strong></td><td>Standard requires refs stay valid — prevents open addressing</td></tr>
+    </tbody>
+  </table>
+  <div class="card red" style="margin-top:0.4em">
+    <p>For performance-critical C++ code, use <strong style="color:var(--red)">absl::flat_hash_map</strong> (Swiss Table), <strong>robin_map</strong> (Tessil), or <strong>ankerl::unordered_dense</strong>.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 18 — Thread-Safe Hash Maps
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">18</span>
+    <h2>Thread-Safe Hash Maps</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>The problem</h3>
+      <p>Concurrent reads and writes require synchronisation. A global lock serialises all operations and destroys throughput.</p>
+      <h3 style="margin-top:0.4em">Lock striping (Java ConcurrentHashMap)</h3>
+      <ul>
+        <li>Partition the table into <strong class="a">segments</strong> (e.g. 16)</li>
+        <li>Each segment has its own lock</li>
+        <li>Operations on different segments proceed in parallel</li>
+        <li>Java 8+: replaced segments with <strong class="g">per-bucket CAS</strong> + <code>synchronized</code> on bucket head</li>
+      </ul>
+      <h3 style="margin-top:0.4em">Lock-free approaches</h3>
+      <ul>
+        <li><strong class="p">RCU</strong> — readers lock-free; writers copy, modify, swap pointer</li>
+        <li><strong class="b">Harris-style</strong> — CAS-based insertion/deletion on chains</li>
+        <li><strong class="a">Cliff Click's NonBlockingHashMap</strong> — lock-free open addressing via CAS</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Comparison</h3>
+      <table>
+        <thead>
+          <tr><th>Implementation</th><th>Read</th><th>Write</th><th>Resize</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Global lock</strong></td><td class="r">Serial</td><td class="r">Serial</td><td>Blocking</td></tr>
+          <tr><td><strong>Lock striping</strong></td><td class="g">Parallel</td><td class="g">Parallel</td><td>Per-segment</td></tr>
+          <tr><td><strong>CAS per bucket</strong></td><td class="g">Lock-free</td><td class="g">Lock-free</td><td>Cooperative</td></tr>
+          <tr><td><strong>RCU</strong></td><td class="g">Wait-free</td><td>Lock write</td><td>Copy-on-write</td></tr>
+        </tbody>
+      </table>
+      <div class="card green" style="margin-top:0.6em">
+        <p>For <strong style="color:var(--green)">read-heavy</strong> workloads, RCU or lock-free maps offer the best throughput. For mixed workloads, <strong style="color:var(--green)">CAS-based per-bucket locking</strong> (Java 8 ConcurrentHashMap) is the industry standard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 19 — Applications & Limitations
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">19</span>
+    <h2>Applications &amp; Limitations</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>Applications</h3>
+      <div style="display:flex; flex-direction:column; gap:.3em; margin-top:0.3em">
+        <div class="card amber">
+          <p><strong style="color:var(--amber)">Symbol tables</strong> — compilers, interpreters, debuggers</p>
+        </div>
+        <div class="card green">
+          <p><strong style="color:var(--green)">Caching</strong> — memoisation, LRU caches (hash map + doubly-linked list)</p>
+        </div>
+        <div class="card blue">
+          <p><strong style="color:var(--blue)">Databases</strong> — hash indexes, hash joins, in-memory tables</p>
+        </div>
+        <div class="card purple">
+          <p><strong style="color:var(--purple)">Networking</strong> — connection tracking, NAT tables, routing tables</p>
+        </div>
+        <div class="card amber">
+          <p><strong style="color:var(--amber)">Deduplication</strong> — seen-set for crawlers, stream processing</p>
+        </div>
+        <div class="card green">
+          <p><strong style="color:var(--green)">Counting</strong> — frequency tables, word counts, histograms</p>
+        </div>
+        <div class="card blue">
+          <p><strong style="color:var(--blue)">Sets</strong> — membership testing (hash set = hash map with no values)</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3>Limitations</h3>
+      <div style="display:flex; flex-direction:column; gap:.3em; margin-top:0.3em">
+        <div class="card red">
+          <p><strong style="color:var(--red)">No ordering</strong> — no range queries, min/max, successor (use BST / B-tree)</p>
+        </div>
+        <div class="card red">
+          <p><strong style="color:var(--red)">Hash quality matters</strong> — poor functions cause clustering and <code>O(n)</code></p>
+        </div>
+        <div class="card red">
+          <p><strong style="color:var(--red)">Hash-flooding attacks</strong> — adversarial inputs force worst case (mitigate with SipHash / random seeds)</p>
+        </div>
+        <div class="card red">
+          <p><strong style="color:var(--red)">Memory overhead</strong> — open addressing wastes empty slots; chaining wastes pointers</p>
+        </div>
+        <div class="card red">
+          <p><strong style="color:var(--red)">Resizing latency</strong> — rehashing <code>n</code> elements pauses the system (mitigate with incremental rehash)</p>
+        </div>
+        <div class="card red">
+          <p><strong style="color:var(--red)">Not scan-optimal</strong> — iterating all elements slower than a flat array</p>
+        </div>
+      </div>
+      <div class="card amber" style="margin-top:0.5em">
+        <p>When you need sorted iteration or range queries, use a <strong style="color:var(--amber)">balanced BST</strong> (<code>std::map</code>, <code>TreeMap</code>) or <strong style="color:var(--amber)">B-tree</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+  SLIDE 20 — Summary & Further Reading
+══════════════════════════════════════════════════════════════════ -->
+<section data-background-color="#0a0a0f">
+  <div class="slide-hdr">
+    <span class="tag">20</span>
+    <h2>Summary &amp; Further Reading</h2>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <h3>Key takeaways</h3>
+      <ul>
+        <li>Hash tables provide <code>O(1)</code> expected time for insert, search, delete — the fastest dictionary for point queries</li>
+        <li>Hash function choice determines distribution quality and security against adversarial inputs</li>
+        <li>Separate chaining is simple but cache-unfriendly; open addressing keeps data contiguous</li>
+        <li>Robin Hood hashing equalises probe distances; cuckoo hashing guarantees <code>O(1)</code> worst-case lookup</li>
+        <li>Swiss Table (SIMD + linear probing) is the current state of the art</li>
+        <li>Perfect hashing achieves <code>O(1)</code> worst case for static key sets</li>
+        <li>Load factor management and amortised resizing keep operations constant-time</li>
+        <li>Thread safety requires lock striping, CAS, or RCU — never a single global lock</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Recommended reading</h3>
+      <table>
+        <thead>
+          <tr><th>Source</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>CLRS</strong></td><td><em>Introduction to Algorithms</em>, chapters 11–12</td></tr>
+          <tr><td><strong>Knuth</strong></td><td><em>TAOCP</em> Vol. 3 — Sorting & Searching, Section 6.4</td></tr>
+          <tr><td><strong>Herlihy & Shavit</strong></td><td><em>The Art of Multiprocessor Programming</em></td></tr>
+          <tr><td><strong>Abseil</strong></td><td><a href="https://abseil.io/about/design/swisstables" style="color:var(--blue)">Swiss Table design notes</a></td></tr>
+          <tr><td><strong>Pagh & Rodler</strong></td><td>"Cuckoo Hashing" — <em>J. Algorithms</em>, 2004</td></tr>
+          <tr><td><strong>Celis et al.</strong></td><td>"Robin Hood Hashing" — FOCS 1985</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/highlight/highlight.min.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'fade',
+  transitionSpeed: 'fast',
+  controls: true,
+  progress: true,
+  center: false,
+  width: 1100,
+  height: 900,
+  margin: 0.01,
+  plugins: [RevealHighlight],
+  highlight: { theme: 'monokai' }
+});
+</script>
+<script>
+(function(){
+  var h = Reveal.getConfig().height || 900;
+  var m = Reveal.getConfig().margin || 0.02;
+  var maxH = Math.floor(h * (1 - 2 * m)) + 'px';
+  function fixSlides(){
+    document.querySelectorAll('.reveal .slides>section,.reveal .slides>section>section').forEach(function(s){
+      s.style.display = 'block';
+      s.style.maxHeight = maxH;
+    });
+  }
+  Reveal.on('ready', fixSlides);
+  Reveal.on('slidechanged', fixSlides);
+})();
+</script>
+</body>
+</html>
