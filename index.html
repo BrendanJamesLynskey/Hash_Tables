@@ -6,7 +6,7 @@
   <title>Hash Tables</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,17 +14,17 @@
 
   <style>
   :root {
-    --amber:  #f5a623;
-    --green:  #4ecb8d;
-    --purple: #a78bfa;
-    --blue:   #60a5fa;
-    --red:    #f87171;
-    --bg:     #0a0a0f;
-    --bg2:    #10101a;
-    --bg3:    #181824;
-    --border: #2a2a3a;
-    --text:   #e8e8f0;
-    --muted:  #8888a8;
+    --amber:  #bf7d10;
+    --green:  #1c815a;
+    --purple: #6435bc;
+    --blue:   #2b3dc5;
+    --red:    #db3a30;
+    --bg:     #fafaf8;
+    --bg2:    #f1f1ee;
+    --bg3:    #eaeae6;
+    --border: #d1d1cb;
+    --text:   #161616;
+    --muted:  #6a6a63;
   }
 
   .reveal-viewport { background: var(--bg); }
@@ -40,7 +40,7 @@
   .reveal code { font-family: 'JetBrains Mono', monospace; font-size: .72em; }
   .reveal pre  { box-shadow: none; background: var(--bg3); border: 1px solid var(--border);
                  border-radius: 6px; padding: .3em .5em; margin: .25em 0; }
-  .reveal pre code { font-size: .52em; line-height: 1.35; background: transparent; color: #cdd6f4; }
+  .reveal pre code { font-size: .52em; line-height: 1.35; background: transparent; color: #242422; }
 
   /* ── slide chrome ── */
   .slide-hdr {
@@ -75,16 +75,16 @@
   .card.blue  { border-left: 3px solid var(--blue); }
   .card.red   { border-left: 3px solid var(--red); }
   .card h3 { font-size: .64em; margin: 0 0 .12em; }
-  .card p  { font-size: .52em; margin: 0; color: #b8b8d0; }
+  .card p  { font-size: .52em; margin: 0; color: #3d3d39; }
   .card ul { margin: 0; padding-left: 1em; }
-  .card li { font-size: .52em; color: #b8b8d0; margin-bottom: .02em; }
+  .card li { font-size: .52em; color: #3d3d39; margin-bottom: .02em; }
 
   /* ── table ── */
   .reveal table { width: 100%; border-collapse: collapse; font-size: .5em; }
   .reveal table th { background: var(--bg3); color: var(--amber); font-weight: 600;
                      padding: .2em .4em; border: 1px solid var(--border); text-align: left; }
-  .reveal table td { padding: .18em .4em; border: 1px solid var(--border); color: #ccc; }
-  .reveal table tr:nth-child(even) td { background: #0e0e18; }
+  .reveal table td { padding: .18em .4em; border: 1px solid var(--border); color: #2d2d2b; }
+  .reveal table tr:nth-child(even) td { background: #f3f3f1; }
 
   /* ── accent spans ── */
   .a  { color: var(--amber); font-weight: 600; }
@@ -127,8 +127,8 @@
     padding: .2em .55em; border-radius: 5px; font-size: .9em;
     background: var(--bg3); border: 1px solid var(--border); color: var(--text);
   }
-  .ss-node.active { background: #1a2a1a; border-color: var(--green); color: var(--green); }
-  .ss-node.done   { background: #1a1a2a; border-color: var(--purple); color: var(--purple); }
+  .ss-node.active { background: #d3e1d5; border-color: var(--green); color: var(--green); }
+  .ss-node.done   { background: #e6e6e2; border-color: var(--purple); color: var(--purple); }
   .ss-arrow { color: var(--amber); }
   .ss-label { font-size: .8em; color: var(--muted); margin-left: .3em; }
 
@@ -136,6 +136,7 @@
   .reveal ul, .reveal ol { margin: .15em 0 .15em 1em; }
 .reveal .slides > section { display: flex !important; flex-direction: column !important; overflow-y: auto !important; align-items: stretch !important; justify-content: flex-start !important; }
 </style>
+<style>.reveal .slide-number{background-color:transparent}</style>
 </head>
 <body>
 <div class="reveal">
@@ -144,7 +145,7 @@
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 01 — Title
 ══════════════════════════════════════════════════════════════════ -->
-<section class="title-slide" data-background-color="#0a0a0f">
+<section class="title-slide" data-background-color="#fafaf8">
   <div style="font-family:'JetBrains Mono',monospace; font-size:.5em; color:var(--muted); margin-bottom:.4em; letter-spacing:.1em;">COMPUTER SCIENCE FUNDAMENTALS SERIES</div>
   <h1>Hash Tables</h1>
   <div class="subtitle">
@@ -160,7 +161,7 @@
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 02 — Dictionary / Map ADT
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">02</span>
     <h2>Dictionary / Map ADT</h2>
@@ -198,7 +199,7 @@
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 03 — Direct Addressing
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">03</span>
     <h2>Direct Addressing</h2>
@@ -225,45 +226,45 @@ T[k] = NIL     // DELETE</code></pre>
       <!-- Direct addressing diagram -->
       <div style="background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:.5em; margin-top:0.5em">
         <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-          <text x="10" y="16" font-family="'JetBrains Mono',monospace" font-size="10" fill="#8888a8">Direct-address table T[0..9]</text>
+          <text x="10" y="16" font-family="'JetBrains Mono',monospace" font-size="10" fill="#6a6a63">Direct-address table T[0..9]</text>
           <!-- slots -->
-          <rect x="40" y="25" width="45" height="130" rx="3" fill="#1a1a28" stroke="#2a2a3a"/>
-          <line x1="40" y1="38" x2="85" y2="38" stroke="#2a2a3a"/>
-          <line x1="40" y1="51" x2="85" y2="51" stroke="#2a2a3a"/>
-          <line x1="40" y1="64" x2="85" y2="64" stroke="#2a2a3a"/>
-          <line x1="40" y1="77" x2="85" y2="77" stroke="#2a2a3a"/>
-          <line x1="40" y1="90" x2="85" y2="90" stroke="#2a2a3a"/>
-          <line x1="40" y1="103" x2="85" y2="103" stroke="#2a2a3a"/>
-          <line x1="40" y1="116" x2="85" y2="116" stroke="#2a2a3a"/>
-          <line x1="40" y1="129" x2="85" y2="129" stroke="#2a2a3a"/>
-          <line x1="40" y1="142" x2="85" y2="142" stroke="#2a2a3a"/>
+          <rect x="40" y="25" width="45" height="130" rx="3" fill="#e7e7e2" stroke="#d1d1cb"/>
+          <line x1="40" y1="38" x2="85" y2="38" stroke="#d1d1cb"/>
+          <line x1="40" y1="51" x2="85" y2="51" stroke="#d1d1cb"/>
+          <line x1="40" y1="64" x2="85" y2="64" stroke="#d1d1cb"/>
+          <line x1="40" y1="77" x2="85" y2="77" stroke="#d1d1cb"/>
+          <line x1="40" y1="90" x2="85" y2="90" stroke="#d1d1cb"/>
+          <line x1="40" y1="103" x2="85" y2="103" stroke="#d1d1cb"/>
+          <line x1="40" y1="116" x2="85" y2="116" stroke="#d1d1cb"/>
+          <line x1="40" y1="129" x2="85" y2="129" stroke="#d1d1cb"/>
+          <line x1="40" y1="142" x2="85" y2="142" stroke="#d1d1cb"/>
           <!-- indices -->
-          <text x="30" y="36" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">0</text>
-          <text x="30" y="49" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">1</text>
-          <text x="30" y="62" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f5a623">2</text>
-          <text x="30" y="75" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">3</text>
-          <text x="30" y="88" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">4</text>
-          <text x="30" y="101" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f5a623">5</text>
-          <text x="30" y="114" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">6</text>
-          <text x="30" y="127" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">7</text>
-          <text x="30" y="140" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#f5a623">8</text>
-          <text x="30" y="153" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">9</text>
+          <text x="30" y="36" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">0</text>
+          <text x="30" y="49" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">1</text>
+          <text x="30" y="62" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#bf7d10">2</text>
+          <text x="30" y="75" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">3</text>
+          <text x="30" y="88" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">4</text>
+          <text x="30" y="101" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#bf7d10">5</text>
+          <text x="30" y="114" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">6</text>
+          <text x="30" y="127" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">7</text>
+          <text x="30" y="140" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#bf7d10">8</text>
+          <text x="30" y="153" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">9</text>
           <!-- occupied slots highlighted -->
-          <rect x="41" y="52" width="43" height="12" rx="2" fill="#1e2e1e" stroke="#4ecb8d" stroke-width="0.5"/>
-          <text x="62" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#4ecb8d">val_A</text>
-          <rect x="41" y="91" width="43" height="12" rx="2" fill="#1e2e1e" stroke="#4ecb8d" stroke-width="0.5"/>
-          <text x="62" y="100" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#4ecb8d">val_B</text>
-          <rect x="41" y="130" width="43" height="12" rx="2" fill="#1e2e1e" stroke="#4ecb8d" stroke-width="0.5"/>
-          <text x="62" y="139" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#4ecb8d">val_C</text>
+          <rect x="41" y="52" width="43" height="12" rx="2" fill="#cfddd1" stroke="#1c815a" stroke-width="0.5"/>
+          <text x="62" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#1c815a">val_A</text>
+          <rect x="41" y="91" width="43" height="12" rx="2" fill="#cfddd1" stroke="#1c815a" stroke-width="0.5"/>
+          <text x="62" y="100" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#1c815a">val_B</text>
+          <rect x="41" y="130" width="43" height="12" rx="2" fill="#cfddd1" stroke="#1c815a" stroke-width="0.5"/>
+          <text x="62" y="139" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#1c815a">val_C</text>
           <!-- keys pointing in -->
-          <text x="150" y="62" font-family="'JetBrains Mono',monospace" font-size="10" fill="#f5a623">key=2</text>
-          <line x1="148" y1="58" x2="88" y2="58" stroke="#f5a623" stroke-dasharray="3,2" marker-end="url(#arr-a)"/>
-          <text x="150" y="100" font-family="'JetBrains Mono',monospace" font-size="10" fill="#f5a623">key=5</text>
-          <line x1="148" y1="96" x2="88" y2="96" stroke="#f5a623" stroke-dasharray="3,2"/>
-          <text x="150" y="139" font-family="'JetBrains Mono',monospace" font-size="10" fill="#f5a623">key=8</text>
-          <line x1="148" y1="135" x2="88" y2="135" stroke="#f5a623" stroke-dasharray="3,2"/>
+          <text x="150" y="62" font-family="'JetBrains Mono',monospace" font-size="10" fill="#bf7d10">key=2</text>
+          <line x1="148" y1="58" x2="88" y2="58" stroke="#bf7d10" stroke-dasharray="3,2" marker-end="url(#arr-a)"/>
+          <text x="150" y="100" font-family="'JetBrains Mono',monospace" font-size="10" fill="#bf7d10">key=5</text>
+          <line x1="148" y1="96" x2="88" y2="96" stroke="#bf7d10" stroke-dasharray="3,2"/>
+          <text x="150" y="139" font-family="'JetBrains Mono',monospace" font-size="10" fill="#bf7d10">key=8</text>
+          <line x1="148" y1="135" x2="88" y2="135" stroke="#bf7d10" stroke-dasharray="3,2"/>
           <!-- label -->
-          <text x="150" y="165" font-family="'DM Sans',sans-serif" font-size="9" fill="#8888a8">Only 3 of 10 slots used</text>
+          <text x="150" y="165" font-family="'DM Sans',sans-serif" font-size="9" fill="#6a6a63">Only 3 of 10 slots used</text>
         </svg>
       </div>
     </div>
@@ -273,7 +274,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 04 — Hash Functions
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">04</span>
     <h2>Hash Functions</h2>
@@ -319,7 +320,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 05 — Universal Hashing
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">05</span>
     <h2>Universal Hashing</h2>
@@ -361,7 +362,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 06 — Separate Chaining
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">06</span>
     <h2>Separate Chaining</h2>
@@ -393,62 +394,62 @@ T[k] = NIL     // DELETE</code></pre>
         <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
           <defs>
             <marker id="ch-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L6,3 z" fill="#a78bfa"/>
+              <path d="M0,0 L0,6 L6,3 z" fill="#6435bc"/>
             </marker>
           </defs>
-          <text x="10" y="14" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8888a8">Separate chaining</text>
+          <text x="10" y="14" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">Separate chaining</text>
           <!-- table slots -->
-          <rect x="10" y="22" width="50" height="160" rx="3" fill="#1a1a28" stroke="#2a2a3a"/>
-          <text x="35" y="38" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[0]</text>
-          <line x1="10" y1="42" x2="60" y2="42" stroke="#2a2a3a"/>
-          <text x="35" y="58" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[1]</text>
-          <line x1="10" y1="62" x2="60" y2="62" stroke="#2a2a3a"/>
-          <text x="35" y="78" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[2]</text>
-          <line x1="10" y1="82" x2="60" y2="82" stroke="#2a2a3a"/>
-          <text x="35" y="98" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[3]</text>
-          <line x1="10" y1="102" x2="60" y2="102" stroke="#2a2a3a"/>
-          <text x="35" y="118" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[4]</text>
-          <line x1="10" y1="122" x2="60" y2="122" stroke="#2a2a3a"/>
-          <text x="35" y="138" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#8888a8">T[5]</text>
-          <line x1="10" y1="142" x2="60" y2="142" stroke="#2a2a3a"/>
-          <text x="35" y="158" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#8888a8">T[6]</text>
-          <line x1="10" y1="162" x2="60" y2="162" stroke="#2a2a3a"/>
-          <text x="35" y="178" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#f5a623">T[7]</text>
+          <rect x="10" y="22" width="50" height="160" rx="3" fill="#e7e7e2" stroke="#d1d1cb"/>
+          <text x="35" y="38" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[0]</text>
+          <line x1="10" y1="42" x2="60" y2="42" stroke="#d1d1cb"/>
+          <text x="35" y="58" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[1]</text>
+          <line x1="10" y1="62" x2="60" y2="62" stroke="#d1d1cb"/>
+          <text x="35" y="78" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[2]</text>
+          <line x1="10" y1="82" x2="60" y2="82" stroke="#d1d1cb"/>
+          <text x="35" y="98" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[3]</text>
+          <line x1="10" y1="102" x2="60" y2="102" stroke="#d1d1cb"/>
+          <text x="35" y="118" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[4]</text>
+          <line x1="10" y1="122" x2="60" y2="122" stroke="#d1d1cb"/>
+          <text x="35" y="138" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6a6a63">T[5]</text>
+          <line x1="10" y1="142" x2="60" y2="142" stroke="#d1d1cb"/>
+          <text x="35" y="158" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6a6a63">T[6]</text>
+          <line x1="10" y1="162" x2="60" y2="162" stroke="#d1d1cb"/>
+          <text x="35" y="178" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[7]</text>
           <!-- chain from T[0] -->
-          <line x1="60" y1="34" x2="78" y2="34" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
-          <rect x="82" y="26" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
-          <text x="101" y="37" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k3</text>
-          <line x1="120" y1="34" x2="138" y2="34" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
-          <rect x="142" y="26" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
-          <text x="161" y="37" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k7</text>
+          <line x1="60" y1="34" x2="78" y2="34" stroke="#6435bc" marker-end="url(#ch-arr)"/>
+          <rect x="82" y="26" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
+          <text x="101" y="37" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k3</text>
+          <line x1="120" y1="34" x2="138" y2="34" stroke="#6435bc" marker-end="url(#ch-arr)"/>
+          <rect x="142" y="26" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
+          <text x="161" y="37" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k7</text>
           <!-- chain from T[2] -->
-          <line x1="60" y1="74" x2="78" y2="74" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
-          <rect x="82" y="66" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
-          <text x="101" y="77" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k1</text>
+          <line x1="60" y1="74" x2="78" y2="74" stroke="#6435bc" marker-end="url(#ch-arr)"/>
+          <rect x="82" y="66" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
+          <text x="101" y="77" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k1</text>
           <!-- chain from T[3] -->
-          <line x1="60" y1="94" x2="78" y2="94" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
-          <rect x="82" y="86" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
-          <text x="101" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k5</text>
-          <line x1="120" y1="94" x2="138" y2="94" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
-          <rect x="142" y="86" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
-          <text x="161" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k9</text>
-          <line x1="180" y1="94" x2="198" y2="94" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
-          <rect x="202" y="86" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
-          <text x="221" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k2</text>
+          <line x1="60" y1="94" x2="78" y2="94" stroke="#6435bc" marker-end="url(#ch-arr)"/>
+          <rect x="82" y="86" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
+          <text x="101" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k5</text>
+          <line x1="120" y1="94" x2="138" y2="94" stroke="#6435bc" marker-end="url(#ch-arr)"/>
+          <rect x="142" y="86" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
+          <text x="161" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k9</text>
+          <line x1="180" y1="94" x2="198" y2="94" stroke="#6435bc" marker-end="url(#ch-arr)"/>
+          <rect x="202" y="86" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
+          <text x="221" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k2</text>
           <!-- chain from T[4] -->
-          <line x1="60" y1="114" x2="78" y2="114" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
-          <rect x="82" y="106" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
-          <text x="101" y="117" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k8</text>
+          <line x1="60" y1="114" x2="78" y2="114" stroke="#6435bc" marker-end="url(#ch-arr)"/>
+          <rect x="82" y="106" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
+          <text x="101" y="117" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k8</text>
           <!-- T[1] NIL -->
-          <text x="70" y="58" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8888a8">NIL</text>
+          <text x="70" y="58" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6a6a63">NIL</text>
           <!-- T[5] NIL -->
-          <text x="70" y="138" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8888a8">NIL</text>
+          <text x="70" y="138" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6a6a63">NIL</text>
           <!-- T[6] NIL -->
-          <text x="70" y="158" font-family="'JetBrains Mono',monospace" font-size="7" fill="#8888a8">NIL</text>
+          <text x="70" y="158" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6a6a63">NIL</text>
           <!-- chain from T[7] -->
-          <line x1="60" y1="174" x2="78" y2="174" stroke="#a78bfa" marker-end="url(#ch-arr)"/>
-          <rect x="82" y="166" width="38" height="16" rx="3" fill="#1e1e2e" stroke="#a78bfa"/>
-          <text x="101" y="177" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#a78bfa">k4</text>
+          <line x1="60" y1="174" x2="78" y2="174" stroke="#6435bc" marker-end="url(#ch-arr)"/>
+          <rect x="82" y="166" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
+          <text x="101" y="177" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k4</text>
         </svg>
       </div>
     </div>
@@ -458,7 +459,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 07 — Open Addressing: Linear & Quadratic Probing
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">07</span>
     <h2>Open Addressing — Linear &amp; Quadratic Probing</h2>
@@ -494,13 +495,13 @@ T[k] = NIL     // DELETE</code></pre>
         <p style="font-size:.48em; color:var(--muted); margin-bottom:0.2em">Primary clustering — occupied runs grow:</p>
         <div style="display:flex; gap:2px; font-family:'JetBrains Mono',monospace; font-size:.42em;">
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">_</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k1</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k4</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k7</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k2</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k9</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k1</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k4</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k7</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k2</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k9</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">_</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k3</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k3</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">_</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">_</span>
         </div>
@@ -513,7 +514,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 08 — Double Hashing
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">08</span>
     <h2>Double Hashing</h2>
@@ -567,7 +568,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 09 — Load Factor & Performance
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">09</span>
     <h2>Load Factor &amp; Performance</h2>
@@ -613,7 +614,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 10 — Resizing & Rehashing
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">10</span>
     <h2>Resizing &amp; Rehashing</h2>
@@ -680,7 +681,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 11 — Robin Hood Hashing
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">11</span>
     <h2>Robin Hood Hashing</h2>
@@ -725,7 +726,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 12 — Cuckoo Hashing
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">12</span>
     <h2>Cuckoo Hashing</h2>
@@ -769,18 +770,18 @@ T[k] = NIL     // DELETE</code></pre>
         <div style="text-align:center">
           <p style="font-size:.44em; color:var(--amber); margin-bottom:0.15em">T1</p>
           <div style="display:flex; flex-direction:column; gap:2px; font-family:'JetBrains Mono',monospace; font-size:.4em;">
-            <span style="background:#1e2e1e; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k1</span>
+            <span style="background:#cfddd1; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k1</span>
             <span style="background:var(--bg3); border:1px solid var(--border); padding:.12em .4em; border-radius:3px; color:var(--muted)">_</span>
-            <span style="background:#1e2e1e; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k3</span>
-            <span style="background:#1e2e1e; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k5</span>
+            <span style="background:#cfddd1; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k3</span>
+            <span style="background:#cfddd1; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k5</span>
           </div>
         </div>
         <div style="font-family:'JetBrains Mono',monospace; font-size:.5em; color:var(--amber)">⇄</div>
         <div style="text-align:center">
           <p style="font-size:.44em; color:var(--amber); margin-bottom:0.15em">T2</p>
           <div style="display:flex; flex-direction:column; gap:2px; font-family:'JetBrains Mono',monospace; font-size:.4em;">
-            <span style="background:#1e1e2e; border:1px solid var(--purple); padding:.12em .4em; border-radius:3px; color:var(--purple)">k2</span>
-            <span style="background:#1e1e2e; border:1px solid var(--purple); padding:.12em .4em; border-radius:3px; color:var(--purple)">k4</span>
+            <span style="background:#e1e1dc; border:1px solid var(--purple); padding:.12em .4em; border-radius:3px; color:var(--purple)">k2</span>
+            <span style="background:#e1e1dc; border:1px solid var(--purple); padding:.12em .4em; border-radius:3px; color:var(--purple)">k4</span>
             <span style="background:var(--bg3); border:1px solid var(--border); padding:.12em .4em; border-radius:3px; color:var(--muted)">_</span>
             <span style="background:var(--bg3); border:1px solid var(--border); padding:.12em .4em; border-radius:3px; color:var(--muted)">_</span>
           </div>
@@ -793,7 +794,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 13 — Hopscotch Hashing
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">13</span>
     <h2>Hopscotch Hashing</h2>
@@ -837,10 +838,10 @@ T[k] = NIL     // DELETE</code></pre>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">0</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">1</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">2</span>
-          <span style="background:#2e1e00; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">3</span>
-          <span style="background:#2e1e00; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">4</span>
-          <span style="background:#2e1e00; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">5</span>
-          <span style="background:#2e1e00; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">6</span>
+          <span style="background:#f8e2c5; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">3</span>
+          <span style="background:#f8e2c5; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">4</span>
+          <span style="background:#f8e2c5; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">5</span>
+          <span style="background:#f8e2c5; border:1px solid var(--amber); padding:.15em .35em; border-radius:3px; color:var(--amber)">6</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">7</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">8</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">9</span>
@@ -854,7 +855,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 14 — Swiss Table
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">14</span>
     <h2>Swiss Table</h2>
@@ -900,22 +901,22 @@ T[k] = NIL     // DELETE</code></pre>
       <div style="margin-top:0.4em">
         <p style="font-size:.44em; color:var(--muted); margin-bottom:0.15em">One group (16 control bytes):</p>
         <div style="display:flex; gap:1px; font-family:'JetBrains Mono',monospace; font-size:.36em; flex-wrap:wrap;">
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">4A</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">7F</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">4A</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">7F</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.1em .25em; border-radius:2px; color:var(--muted)">FF</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">1B</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">4A</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">1B</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">4A</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.1em .25em; border-radius:2px; color:var(--muted)">FF</span>
-          <span style="background:#2e1e1e; border:1px solid var(--red); padding:.1em .25em; border-radius:2px; color:var(--red)">FE</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">33</span>
+          <span style="background:#e6dcd7; border:1px solid var(--red); padding:.1em .25em; border-radius:2px; color:var(--red)">FE</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">33</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.1em .25em; border-radius:2px; color:var(--muted)">FF</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">5C</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">0D</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">5C</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">0D</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.1em .25em; border-radius:2px; color:var(--muted)">FF</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">72</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">4A</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">72</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">4A</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.1em .25em; border-radius:2px; color:var(--muted)">FF</span>
-          <span style="background:#1e2e1e; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">19</span>
+          <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">19</span>
         </div>
         <p style="font-size:.36em; margin-top:0.1em"><span style="color:var(--green)">H2 match</span> · <span style="color:var(--muted)">FF=empty</span> · <span style="color:var(--red)">FE=deleted</span></p>
       </div>
@@ -926,7 +927,7 @@ T[k] = NIL     // DELETE</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 15 — Perfect Hashing
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">15</span>
     <h2>Perfect Hashing</h2>
@@ -972,7 +973,7 @@ Level 2:  h_j(k) → position in
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 16 — Hash Tables in Practice: Python & Java
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">16</span>
     <h2>Hash Tables in Practice — Python &amp; Java</h2>
@@ -1021,7 +1022,7 @@ Level 2:  h_j(k) → position in
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 17 — Hash Tables in Practice: Go & C++
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">17</span>
     <h2>Hash Tables in Practice — Go &amp; C++</h2>
@@ -1072,7 +1073,7 @@ Level 2:  h_j(k) → position in
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 18 — Thread-Safe Hash Maps
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">18</span>
     <h2>Thread-Safe Hash Maps</h2>
@@ -1118,7 +1119,7 @@ Level 2:  h_j(k) → position in
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 19 — Applications & Limitations
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">19</span>
     <h2>Applications &amp; Limitations</h2>
@@ -1182,7 +1183,7 @@ Level 2:  h_j(k) → position in
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 20 — Summary & Further Reading
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">20</span>
     <h2>Summary &amp; Further Reading</h2>
