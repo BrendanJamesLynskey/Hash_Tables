@@ -10,7 +10,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Azeret+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
   <style>
   :root {
@@ -30,14 +30,14 @@
   .reveal-viewport { background: var(--bg); }
   .reveal .slides section { background: transparent; }
 
-  .reveal { font-family: 'DM Sans', sans-serif; color: var(--text); }
-  .reveal h1, .reveal h2, .reveal h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+  .reveal { font-family: 'Schibsted Grotesk', sans-serif; color: var(--text); }
+  .reveal h1, .reveal h2, .reveal h3 { font-family: 'Schibsted Grotesk', serif; font-weight: 700; }
   .reveal h1 { font-size: 1.6em; color: var(--amber); line-height: 1.1; }
   .reveal h2 { font-size: 1.1em; color: var(--amber); margin-bottom: .2em; }
   .reveal h3 { font-size: .78em; color: var(--green); margin-bottom: .15em; }
   .reveal p  { font-size: .56em; line-height: 1.45; color: var(--text); }
   .reveal li { font-size: .54em; line-height: 1.45; margin-bottom: .1em; }
-  .reveal code { font-family: 'JetBrains Mono', monospace; font-size: .72em; }
+  .reveal code { font-family: 'Azeret Mono', monospace; font-size: .72em; }
   .reveal pre  { box-shadow: none; background: var(--bg3); border: 1px solid var(--border);
                  border-radius: 6px; padding: .3em .5em; margin: .25em 0; }
   .reveal pre code { font-size: .52em; line-height: 1.35; background: transparent; color: #242422; }
@@ -49,7 +49,7 @@
     padding-bottom: .2em; margin-bottom: .3em;
   }
   .slide-hdr .tag {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Azeret Mono', monospace;
     font-size: .42em; font-weight: 500;
     color: var(--bg); background: var(--amber);
     padding: .1em .4em; border-radius: 3px;
@@ -92,14 +92,14 @@
   .p  { color: var(--purple); font-weight: 600; }
   .b  { color: var(--blue); font-weight: 600; }
   .r  { color: var(--red); font-weight: 600; }
-  .mono { font-family: 'JetBrains Mono', monospace; }
+  .mono { font-family: 'Azeret Mono', monospace; }
 
   /* ── SVG graph diagrams ── */
   svg.diagram { display: block; margin: 0 auto; overflow: visible; }
 
   /* ── pill badges ── */
   .pill {
-    display: inline-block; font-family: 'JetBrains Mono', monospace;
+    display: inline-block; font-family: 'Azeret Mono', monospace;
     font-size: .44em; padding: .08em .4em; border-radius: 99px;
     border: 1px solid; margin: 0 .08em;
   }
@@ -113,15 +113,15 @@
   /* title slide special */
   .title-slide h1 { font-size: 1.8em; }
   .title-slide .subtitle {
-    font-size: .7em; color: var(--green); font-family: 'DM Sans', sans-serif;
+    font-size: .7em; color: var(--green); font-family: 'Schibsted Grotesk', sans-serif;
     font-weight: 300; letter-spacing: .04em; margin: .3em 0 .6em;
   }
-  .title-slide .meta { font-size: .48em; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+  .title-slide .meta { font-size: .48em; color: var(--muted); font-family: 'Azeret Mono', monospace; }
 
   /* ── super-step animator ── */
   .ss-row {
     display: flex; gap: .25em; align-items: center;
-    margin: .1em 0; font-size: .55em; font-family: 'JetBrains Mono', monospace;
+    margin: .1em 0; font-size: .55em; font-family: 'Azeret Mono', monospace;
   }
   .ss-node {
     padding: .2em .55em; border-radius: 5px; font-size: .9em;
@@ -146,7 +146,7 @@
   SLIDE 01 — Title
 ══════════════════════════════════════════════════════════════════ -->
 <section class="title-slide" data-background-color="#fafaf8">
-  <div style="font-family:'JetBrains Mono',monospace; font-size:.5em; color:var(--muted); margin-bottom:.4em; letter-spacing:.1em;">COMPUTER SCIENCE FUNDAMENTALS SERIES</div>
+  <div style="font-family:'Azeret Mono',monospace; font-size:.5em; color:var(--muted); margin-bottom:.4em; letter-spacing:.1em;">COMPUTER SCIENCE FUNDAMENTALS SERIES</div>
   <h1>Hash Tables</h1>
   <div class="subtitle">
     Hash functions · Collision resolution · Open addressing ·<br>
@@ -226,7 +226,7 @@ T[k] = NIL     // DELETE</code></pre>
       <!-- Direct addressing diagram -->
       <div style="background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:.5em; margin-top:0.5em">
         <svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-          <text x="10" y="16" font-family="'JetBrains Mono',monospace" font-size="10" fill="#6a6a63">Direct-address table T[0..9]</text>
+          <text x="10" y="16" font-family="'Azeret Mono',monospace" font-size="10" fill="#6a6a63">Direct-address table T[0..9]</text>
           <!-- slots -->
           <rect x="40" y="25" width="45" height="130" rx="3" fill="#e7e7e2" stroke="#d1d1cb"/>
           <line x1="40" y1="38" x2="85" y2="38" stroke="#d1d1cb"/>
@@ -239,32 +239,32 @@ T[k] = NIL     // DELETE</code></pre>
           <line x1="40" y1="129" x2="85" y2="129" stroke="#d1d1cb"/>
           <line x1="40" y1="142" x2="85" y2="142" stroke="#d1d1cb"/>
           <!-- indices -->
-          <text x="30" y="36" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">0</text>
-          <text x="30" y="49" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">1</text>
-          <text x="30" y="62" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#bf7d10">2</text>
-          <text x="30" y="75" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">3</text>
-          <text x="30" y="88" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">4</text>
-          <text x="30" y="101" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#bf7d10">5</text>
-          <text x="30" y="114" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">6</text>
-          <text x="30" y="127" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">7</text>
-          <text x="30" y="140" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#bf7d10">8</text>
-          <text x="30" y="153" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">9</text>
+          <text x="30" y="36" text-anchor="end" font-family="'Azeret Mono',monospace" font-size="9" fill="#6a6a63">0</text>
+          <text x="30" y="49" text-anchor="end" font-family="'Azeret Mono',monospace" font-size="9" fill="#6a6a63">1</text>
+          <text x="30" y="62" text-anchor="end" font-family="'Azeret Mono',monospace" font-size="9" fill="#bf7d10">2</text>
+          <text x="30" y="75" text-anchor="end" font-family="'Azeret Mono',monospace" font-size="9" fill="#6a6a63">3</text>
+          <text x="30" y="88" text-anchor="end" font-family="'Azeret Mono',monospace" font-size="9" fill="#6a6a63">4</text>
+          <text x="30" y="101" text-anchor="end" font-family="'Azeret Mono',monospace" font-size="9" fill="#bf7d10">5</text>
+          <text x="30" y="114" text-anchor="end" font-family="'Azeret Mono',monospace" font-size="9" fill="#6a6a63">6</text>
+          <text x="30" y="127" text-anchor="end" font-family="'Azeret Mono',monospace" font-size="9" fill="#6a6a63">7</text>
+          <text x="30" y="140" text-anchor="end" font-family="'Azeret Mono',monospace" font-size="9" fill="#bf7d10">8</text>
+          <text x="30" y="153" text-anchor="end" font-family="'Azeret Mono',monospace" font-size="9" fill="#6a6a63">9</text>
           <!-- occupied slots highlighted -->
           <rect x="41" y="52" width="43" height="12" rx="2" fill="#cfddd1" stroke="#1c815a" stroke-width="0.5"/>
-          <text x="62" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#1c815a">val_A</text>
+          <text x="62" y="61" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="8" fill="#1c815a">val_A</text>
           <rect x="41" y="91" width="43" height="12" rx="2" fill="#cfddd1" stroke="#1c815a" stroke-width="0.5"/>
-          <text x="62" y="100" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#1c815a">val_B</text>
+          <text x="62" y="100" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="8" fill="#1c815a">val_B</text>
           <rect x="41" y="130" width="43" height="12" rx="2" fill="#cfddd1" stroke="#1c815a" stroke-width="0.5"/>
-          <text x="62" y="139" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#1c815a">val_C</text>
+          <text x="62" y="139" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="8" fill="#1c815a">val_C</text>
           <!-- keys pointing in -->
-          <text x="150" y="62" font-family="'JetBrains Mono',monospace" font-size="10" fill="#bf7d10">key=2</text>
+          <text x="150" y="62" font-family="'Azeret Mono',monospace" font-size="10" fill="#bf7d10">key=2</text>
           <line x1="148" y1="58" x2="88" y2="58" stroke="#bf7d10" stroke-dasharray="3,2" marker-end="url(#arr-a)"/>
-          <text x="150" y="100" font-family="'JetBrains Mono',monospace" font-size="10" fill="#bf7d10">key=5</text>
+          <text x="150" y="100" font-family="'Azeret Mono',monospace" font-size="10" fill="#bf7d10">key=5</text>
           <line x1="148" y1="96" x2="88" y2="96" stroke="#bf7d10" stroke-dasharray="3,2"/>
-          <text x="150" y="139" font-family="'JetBrains Mono',monospace" font-size="10" fill="#bf7d10">key=8</text>
+          <text x="150" y="139" font-family="'Azeret Mono',monospace" font-size="10" fill="#bf7d10">key=8</text>
           <line x1="148" y1="135" x2="88" y2="135" stroke="#bf7d10" stroke-dasharray="3,2"/>
           <!-- label -->
-          <text x="150" y="165" font-family="'DM Sans',sans-serif" font-size="9" fill="#6a6a63">Only 3 of 10 slots used</text>
+          <text x="150" y="165" font-family="'Schibsted Grotesk',sans-serif" font-size="9" fill="#6a6a63">Only 3 of 10 slots used</text>
         </svg>
       </div>
     </div>
@@ -397,59 +397,59 @@ T[k] = NIL     // DELETE</code></pre>
               <path d="M0,0 L0,6 L6,3 z" fill="#6435bc"/>
             </marker>
           </defs>
-          <text x="10" y="14" font-family="'JetBrains Mono',monospace" font-size="9" fill="#6a6a63">Separate chaining</text>
+          <text x="10" y="14" font-family="'Azeret Mono',monospace" font-size="9" fill="#6a6a63">Separate chaining</text>
           <!-- table slots -->
           <rect x="10" y="22" width="50" height="160" rx="3" fill="#e7e7e2" stroke="#d1d1cb"/>
-          <text x="35" y="38" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[0]</text>
+          <text x="35" y="38" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="8" fill="#bf7d10">T[0]</text>
           <line x1="10" y1="42" x2="60" y2="42" stroke="#d1d1cb"/>
-          <text x="35" y="58" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[1]</text>
+          <text x="35" y="58" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="8" fill="#bf7d10">T[1]</text>
           <line x1="10" y1="62" x2="60" y2="62" stroke="#d1d1cb"/>
-          <text x="35" y="78" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[2]</text>
+          <text x="35" y="78" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="8" fill="#bf7d10">T[2]</text>
           <line x1="10" y1="82" x2="60" y2="82" stroke="#d1d1cb"/>
-          <text x="35" y="98" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[3]</text>
+          <text x="35" y="98" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="8" fill="#bf7d10">T[3]</text>
           <line x1="10" y1="102" x2="60" y2="102" stroke="#d1d1cb"/>
-          <text x="35" y="118" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[4]</text>
+          <text x="35" y="118" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="8" fill="#bf7d10">T[4]</text>
           <line x1="10" y1="122" x2="60" y2="122" stroke="#d1d1cb"/>
-          <text x="35" y="138" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6a6a63">T[5]</text>
+          <text x="35" y="138" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="8" fill="#6a6a63">T[5]</text>
           <line x1="10" y1="142" x2="60" y2="142" stroke="#d1d1cb"/>
-          <text x="35" y="158" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#6a6a63">T[6]</text>
+          <text x="35" y="158" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="8" fill="#6a6a63">T[6]</text>
           <line x1="10" y1="162" x2="60" y2="162" stroke="#d1d1cb"/>
-          <text x="35" y="178" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#bf7d10">T[7]</text>
+          <text x="35" y="178" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="8" fill="#bf7d10">T[7]</text>
           <!-- chain from T[0] -->
           <line x1="60" y1="34" x2="78" y2="34" stroke="#6435bc" marker-end="url(#ch-arr)"/>
           <rect x="82" y="26" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
-          <text x="101" y="37" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k3</text>
+          <text x="101" y="37" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="7" fill="#6435bc">k3</text>
           <line x1="120" y1="34" x2="138" y2="34" stroke="#6435bc" marker-end="url(#ch-arr)"/>
           <rect x="142" y="26" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
-          <text x="161" y="37" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k7</text>
+          <text x="161" y="37" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="7" fill="#6435bc">k7</text>
           <!-- chain from T[2] -->
           <line x1="60" y1="74" x2="78" y2="74" stroke="#6435bc" marker-end="url(#ch-arr)"/>
           <rect x="82" y="66" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
-          <text x="101" y="77" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k1</text>
+          <text x="101" y="77" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="7" fill="#6435bc">k1</text>
           <!-- chain from T[3] -->
           <line x1="60" y1="94" x2="78" y2="94" stroke="#6435bc" marker-end="url(#ch-arr)"/>
           <rect x="82" y="86" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
-          <text x="101" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k5</text>
+          <text x="101" y="97" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="7" fill="#6435bc">k5</text>
           <line x1="120" y1="94" x2="138" y2="94" stroke="#6435bc" marker-end="url(#ch-arr)"/>
           <rect x="142" y="86" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
-          <text x="161" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k9</text>
+          <text x="161" y="97" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="7" fill="#6435bc">k9</text>
           <line x1="180" y1="94" x2="198" y2="94" stroke="#6435bc" marker-end="url(#ch-arr)"/>
           <rect x="202" y="86" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
-          <text x="221" y="97" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k2</text>
+          <text x="221" y="97" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="7" fill="#6435bc">k2</text>
           <!-- chain from T[4] -->
           <line x1="60" y1="114" x2="78" y2="114" stroke="#6435bc" marker-end="url(#ch-arr)"/>
           <rect x="82" y="106" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
-          <text x="101" y="117" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k8</text>
+          <text x="101" y="117" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="7" fill="#6435bc">k8</text>
           <!-- T[1] NIL -->
-          <text x="70" y="58" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6a6a63">NIL</text>
+          <text x="70" y="58" font-family="'Azeret Mono',monospace" font-size="7" fill="#6a6a63">NIL</text>
           <!-- T[5] NIL -->
-          <text x="70" y="138" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6a6a63">NIL</text>
+          <text x="70" y="138" font-family="'Azeret Mono',monospace" font-size="7" fill="#6a6a63">NIL</text>
           <!-- T[6] NIL -->
-          <text x="70" y="158" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6a6a63">NIL</text>
+          <text x="70" y="158" font-family="'Azeret Mono',monospace" font-size="7" fill="#6a6a63">NIL</text>
           <!-- chain from T[7] -->
           <line x1="60" y1="174" x2="78" y2="174" stroke="#6435bc" marker-end="url(#ch-arr)"/>
           <rect x="82" y="166" width="38" height="16" rx="3" fill="#e1e1dc" stroke="#6435bc"/>
-          <text x="101" y="177" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="#6435bc">k4</text>
+          <text x="101" y="177" text-anchor="middle" font-family="'Azeret Mono',monospace" font-size="7" fill="#6435bc">k4</text>
         </svg>
       </div>
     </div>
@@ -493,7 +493,7 @@ T[k] = NIL     // DELETE</code></pre>
       <!-- Clustering visual -->
       <div style="margin-top:0.5em">
         <p style="font-size:.48em; color:var(--muted); margin-bottom:0.2em">Primary clustering — occupied runs grow:</p>
-        <div style="display:flex; gap:2px; font-family:'JetBrains Mono',monospace; font-size:.42em;">
+        <div style="display:flex; gap:2px; font-family:'Azeret Mono',monospace; font-size:.42em;">
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">_</span>
           <span style="background:#cfddd1; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k1</span>
           <span style="background:#cfddd1; border:1px solid var(--green); padding:.15em .35em; border-radius:3px; color:var(--green)">k4</span>
@@ -769,17 +769,17 @@ T[k] = NIL     // DELETE</code></pre>
       <div style="margin-top:0.4em; display:flex; gap:0.8em; align-items:center; justify-content:center">
         <div style="text-align:center">
           <p style="font-size:.44em; color:var(--amber); margin-bottom:0.15em">T1</p>
-          <div style="display:flex; flex-direction:column; gap:2px; font-family:'JetBrains Mono',monospace; font-size:.4em;">
+          <div style="display:flex; flex-direction:column; gap:2px; font-family:'Azeret Mono',monospace; font-size:.4em;">
             <span style="background:#cfddd1; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k1</span>
             <span style="background:var(--bg3); border:1px solid var(--border); padding:.12em .4em; border-radius:3px; color:var(--muted)">_</span>
             <span style="background:#cfddd1; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k3</span>
             <span style="background:#cfddd1; border:1px solid var(--green); padding:.12em .4em; border-radius:3px; color:var(--green)">k5</span>
           </div>
         </div>
-        <div style="font-family:'JetBrains Mono',monospace; font-size:.5em; color:var(--amber)">⇄</div>
+        <div style="font-family:'Azeret Mono',monospace; font-size:.5em; color:var(--amber)">⇄</div>
         <div style="text-align:center">
           <p style="font-size:.44em; color:var(--amber); margin-bottom:0.15em">T2</p>
-          <div style="display:flex; flex-direction:column; gap:2px; font-family:'JetBrains Mono',monospace; font-size:.4em;">
+          <div style="display:flex; flex-direction:column; gap:2px; font-family:'Azeret Mono',monospace; font-size:.4em;">
             <span style="background:#e1e1dc; border:1px solid var(--purple); padding:.12em .4em; border-radius:3px; color:var(--purple)">k2</span>
             <span style="background:#e1e1dc; border:1px solid var(--purple); padding:.12em .4em; border-radius:3px; color:var(--purple)">k4</span>
             <span style="background:var(--bg3); border:1px solid var(--border); padding:.12em .4em; border-radius:3px; color:var(--muted)">_</span>
@@ -834,7 +834,7 @@ T[k] = NIL     // DELETE</code></pre>
       <!-- neighbourhood visual -->
       <div style="margin-top:0.4em">
         <p style="font-size:.44em; color:var(--muted); margin-bottom:0.15em">Neighbourhood of slot 3 (H=4):</p>
-        <div style="display:flex; gap:2px; font-family:'JetBrains Mono',monospace; font-size:.42em;">
+        <div style="display:flex; gap:2px; font-family:'Azeret Mono',monospace; font-size:.42em;">
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">0</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">1</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.15em .35em; border-radius:3px; color:var(--muted)">2</span>
@@ -900,7 +900,7 @@ T[k] = NIL     // DELETE</code></pre>
       <!-- group visual -->
       <div style="margin-top:0.4em">
         <p style="font-size:.44em; color:var(--muted); margin-bottom:0.15em">One group (16 control bytes):</p>
-        <div style="display:flex; gap:1px; font-family:'JetBrains Mono',monospace; font-size:.36em; flex-wrap:wrap;">
+        <div style="display:flex; gap:1px; font-family:'Azeret Mono',monospace; font-size:.36em; flex-wrap:wrap;">
           <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">4A</span>
           <span style="background:#cfddd1; border:1px solid var(--green); padding:.1em .25em; border-radius:2px; color:var(--green)">7F</span>
           <span style="background:var(--bg3); border:1px solid var(--border); padding:.1em .25em; border-radius:2px; color:var(--muted)">FF</span>
